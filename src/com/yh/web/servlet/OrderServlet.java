@@ -33,11 +33,11 @@ public class OrderServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		//下面已经放到filter中了
-		/*if(user==null){
+		if(user==null){
 			//没有登录
 			response.sendRedirect(request.getContextPath()+"/login.jsp");
 			return;
-		}*/
+		}
 		Order order  = new Order();
 		//private String oid;//该订单的订单号
 		String oid = CommonsUtils.getUUID();

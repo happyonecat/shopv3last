@@ -26,10 +26,10 @@ public class MyOrderList extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		User user = (User) session.getAttribute("user");
-		/*if(user==null){
+		if(user==null){
 			response.sendRedirect(request.getContextPath()+"/login.jsp");
 			return;
-		}*/
+		}
 		
 		OrderService service = new OrderService();
 		//查询该用户的所有的订单信息(单表查询orders表)
