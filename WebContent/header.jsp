@@ -12,15 +12,20 @@
 	</div>
 	<div class="col-md-3" style="padding-top:20px">
 		<ol class="list-inline">
-			<span>${user.username }${logMsg }</span><li><a href="login.jsp">登录</a></li> 
-			<li><a href="register.jsp">注册</a></li>
+			<c:if test="${empty user }">
+				<li><a href="login.jsp">登录</a></li>
+				<li><a href="register.jsp">注册</a></li>
+			</c:if>
+			<c:if test="${!empty user }">
+				<li style="color:red">欢迎您，${user.username }</li>
+				<li><a href="${pageContext.request.contextPath }/logout">退出</a></li>
+			</c:if>
+			
 			<li><a href="cart.jsp">购物车</a></li>
 			<li><a href="${pageContext.request.contextPath }/myOrderList">我的订单</a></li>
-			<li><a href="${pageContext.request.contextPath }/logout">注销</a></li>
 		</ol>
 	</div>
 </div>
-
 <!-- 导航条 -->
 <div class="container-fluid">
 	<nav class="navbar navbar-inverse">
