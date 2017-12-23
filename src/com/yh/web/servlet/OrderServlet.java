@@ -20,6 +20,7 @@ import com.yh.pojo.OrderItem;
 import com.yh.pojo.Product;
 import com.yh.pojo.User;
 import com.yh.service.OrderService;
+import com.yh.service.impl.OrderServiceImpl;
 import com.yh.utils.CommonsUtils;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
@@ -84,7 +85,7 @@ public class OrderServlet extends HttpServlet {
 		}
 		//order对象封装完毕
 		//传递到orderservice层
-		OrderService orderService = new OrderService();
+		OrderService orderService = new OrderServiceImpl();
 		orderService.submitOrder(order);
 		//将order存到session
 		session.setAttribute("order", order);

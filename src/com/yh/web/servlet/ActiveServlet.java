@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yh.service.UserService;
+import com.yh.service.impl.UserServiceImpl;
 @WebServlet("/active")
 public class ActiveServlet extends HttpServlet {
 
@@ -18,7 +19,7 @@ public class ActiveServlet extends HttpServlet {
 		//获得激活码
 		String activeCode = request.getParameter("activeCode");
 		
-		UserService service = new UserService();
+		UserService service = new UserServiceImpl();
 		service.active(activeCode);
 		
 		//跳转到登录页面

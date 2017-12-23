@@ -1,5 +1,6 @@
 package com.yh.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * 商品
@@ -90,7 +91,11 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "Product [pid=" + pid + ", pname=" + pname + ", market_price=" + market_price + ", shop_price="
+				+ shop_price + ", pimage=" + pimage + ", pdate=" + pdate + ", is_hot=" + is_hot + ", pdesc=" + pdesc
+				+ ", pflag=" + pflag + ", category=" + category + "]";
+	}
 	
 }

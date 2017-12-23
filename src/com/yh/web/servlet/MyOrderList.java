@@ -19,6 +19,7 @@ import com.yh.pojo.OrderItem;
 import com.yh.pojo.Product;
 import com.yh.pojo.User;
 import com.yh.service.OrderService;
+import com.yh.service.impl.OrderServiceImpl;
 @WebServlet("/myOrderList")
 public class MyOrderList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +32,7 @@ public class MyOrderList extends HttpServlet {
 			return;
 		}
 		
-		OrderService service = new OrderService();
+		OrderService service = new OrderServiceImpl();
 		//查询该用户的所有的订单信息(单表查询orders表)
 		//集合中的每一个Order对象的数据是不完整的 缺少List<OrderItem> orderItems数据
 		List<Order> orderList = service.findAllOrders(user.getUid());

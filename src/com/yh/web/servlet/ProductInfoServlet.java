@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yh.pojo.Product;
 import com.yh.service.ProductService;
+import com.yh.service.impl.ProductServiceImpl;
 @WebServlet("/productInfo")
 public class ProductInfoServlet extends HttpServlet {
 
@@ -33,7 +34,7 @@ public class ProductInfoServlet extends HttpServlet {
 		//获得要查询的商品的pid
 		String pid = request.getParameter("pid");
 		
-		ProductService service = new ProductService();
+		ProductService service = new ProductServiceImpl();
 		Product product = service.findProductByPid(pid);
 		
 		request.setAttribute("product", product);

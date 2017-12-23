@@ -20,6 +20,7 @@ import org.apache.commons.beanutils.Converter;
 
 import com.yh.pojo.User;
 import com.yh.service.UserService;
+import com.yh.service.impl.UserServiceImpl;
 import com.yh.utils.CommonsUtils;
 import com.yh.utils.MailUtils;
 @WebServlet("/register")
@@ -72,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		
 		//将user传递给service层
-		UserService service = new UserService();
+		UserService service = new UserServiceImpl();
 		boolean isRegisterSuccess = service.regist(user);
 		
 		//是否注册成功

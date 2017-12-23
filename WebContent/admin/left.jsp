@@ -5,6 +5,14 @@
 <title>菜单</title>
 <link href="${pageContext.request.contextPath}/css/left.css" rel="stylesheet" type="text/css"/>
 <link rel="StyleSheet" href="${pageContext.request.contextPath}/css/dtree.css" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+ $(function(){
+	$.post(
+		"${pageContext.request.contextPath}/manager"		
+	);
+ });
+</script>
 </head>
 <body>
 <table width="100" border="0" cellspacing="0" cellpadding="0">
@@ -28,6 +36,8 @@
 		d.add('010201','0102','分类管理','${pageContext.request.contextPath}/admin/category/list.jsp','','mainFrame');
 		d.add('0104','01','商品管理');
 		d.add('010401','0104','商品管理','${pageContext.request.contextPath}/admin/product/list.jsp','','mainFrame');
+		d.add('0105','01','订单管理');
+		d.add('010501','0105','订单管理','${pageContext.request.contextPath}/listorder','','mainFrame');
 		document.write(d);
 		
 	</script>

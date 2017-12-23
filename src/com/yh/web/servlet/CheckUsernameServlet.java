@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yh.service.UserService;
+import com.yh.service.impl.UserServiceImpl;
 @WebServlet("/checkUsername")
 public class CheckUsernameServlet extends HttpServlet {
 
@@ -24,7 +25,7 @@ public class CheckUsernameServlet extends HttpServlet {
 		//获得用户名
 		String username = request.getParameter("username");
 		
-		UserService service = new UserService();
+		UserService service = new UserServiceImpl();
 		boolean isExist = service.checkUsername(username);
 		
 		String json = "{\"isExist\":"+isExist+"}";

@@ -50,7 +50,22 @@ public class ProductDao {
 	public Product findProductByPid(String pid) throws SQLException {
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		String sql = "select * from product where pid=?";
-		return runner.query(sql, new BeanHandler<Product>(Product.class), pid);
+		return runner.query(sql,new BeanHandler<Product>(Product.class),pid);
+	}
+
+	public List<Product> queryAllProduct() throws SQLException {
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from product";
+		return runner.query(sql, new BeanListHandler<Product>(Product.class));
+	}
+
+	
+
+	public int deleteProByPid(String pid) throws SQLException {
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "delete from product where pid=?";
+		 int update = runner.update(sql,new BeanHandler<Product>(Product.class),pid);
+		return update;
 	}
 
 }

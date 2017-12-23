@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yh.service.OrderService;
+import com.yh.service.impl.OrderServiceImpl;
 import com.yh.utils.PaymentUtil;
 
 /**
@@ -53,7 +54,7 @@ public class CallbackServlet extends HttpServlet {
 			// 响应数据有效
 			if (r9_BType.equals("1")) {
 				//修改order的状态为1
-				OrderService service = new OrderService();
+				OrderService service = new OrderServiceImpl();
 				service.updateOrderState(r6_Order);//r6_Order就是订单编号
 				// 浏览器重定向
 				response.setContentType("text/html;charset=utf-8");

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yh.pojo.PageBean;
 import com.yh.pojo.Product;
 import com.yh.service.ProductService;
+import com.yh.service.impl.ProductServiceImpl;
 @WebServlet("/productListByCid")
 public class ProductListByCidServlet extends HttpServlet {
 
@@ -33,7 +34,7 @@ public class ProductListByCidServlet extends HttpServlet {
 		int currentPage = Integer.parseInt(currentPageStr);
 		int currentCount = 12;
 		
-		ProductService service = new ProductService();
+		ProductService service = new ProductServiceImpl();
 		PageBean pageBean = service.findProductListByCid(cid,currentPage,currentCount);
 		
 		request.setAttribute("pageBean", pageBean);

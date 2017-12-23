@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.yh.pojo.Category;
 import com.yh.service.ProductService;
+import com.yh.service.impl.ProductServiceImpl;
 import com.yh.utils.JedisPoolUtils;
 
 import redis.clients.jedis.Jedis;
@@ -21,7 +22,7 @@ public class CategoryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		ProductService service = new ProductService();
+		ProductService service = new ProductServiceImpl();
 		
 		//先从缓存中查询categoryList 如果有直接使用 没有在从数据库中查询 存到缓存中
 		//1、获得jedis对象 连接redis数据库

@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
 		<meta http-equiv="Content-Language" content="zh-cn">
@@ -57,7 +58,9 @@ TH {
 										<td width="155" valign="bottom"
 											background="${pageContext.request.contextPath}/images/mis_05b.jpg">
 											用户名：
-											<font color="blue">zhangsan</font>
+											<c:if test="${!empty user }">
+												<font color="blue">${user.username }</font>
+											</c:if>
 										</td>
 										<td width="10" align="right"
 											background="${pageContext.request.contextPath}/images/mis_05b.jpg">

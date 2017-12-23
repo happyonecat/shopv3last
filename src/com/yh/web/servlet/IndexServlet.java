@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yh.pojo.Category;
 import com.yh.pojo.Product;
 import com.yh.service.ProductService;
+import com.yh.service.impl.ProductServiceImpl;
 @WebServlet("/index")
 public class IndexServlet extends HttpServlet {
 
@@ -19,7 +20,7 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		
-		ProductService service = new ProductService();
+		ProductService service = new ProductServiceImpl();
 		
 		//准备热门商品---List<Product>
 		List<Product> hotProductList = service.findHotProductList();

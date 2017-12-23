@@ -58,8 +58,13 @@ public class OrderDao {
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		String sql = "select i.count,i.subtotal,p.pimage,p.pname,p.shop_price from orderitem i,product p where i.pid=p.pid and i.oid=?";
 		List<Map<String, Object>> mapList = runner.query(sql, new MapListHandler(), oid);
-		System.out.println(mapList+"orderDao====");
 		return mapList;
+	}
+
+	public List<Order> findAllOrder() throws SQLException {
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders";
+		return runner.query(sql, new BeanListHandler<Order>(Order.class));
 	}
 
 

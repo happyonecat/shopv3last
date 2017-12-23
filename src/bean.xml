@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<!-- 配置adminserviceimpl的清单 -->
+	<bean id="adminSerivce" class="com.yh.service.impl.AdminServiceImpl"></bean>
+	
+	
+	
+	
+</beans>

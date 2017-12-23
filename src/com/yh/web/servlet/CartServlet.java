@@ -15,6 +15,7 @@ import com.yh.pojo.Cart;
 import com.yh.pojo.CartItem;
 import com.yh.pojo.Product;
 import com.yh.service.ProductService;
+import com.yh.service.impl.ProductServiceImpl;
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +27,7 @@ public class CartServlet extends HttpServlet {
 		String pid = request.getParameter("pid");
 		//获得该商品的购买数量
 		int buyNum = Integer.parseInt(request.getParameter("buyNum"));
-		ProductService service= new ProductService();
+		ProductService service= new ProductServiceImpl();
 		//获得product对象
 		 Product findProductByPid = service.findProductByPid(pid);
 		 double shop_price = findProductByPid.getShop_price();

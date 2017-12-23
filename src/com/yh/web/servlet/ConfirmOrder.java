@@ -15,6 +15,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.yh.pojo.Order;
 import com.yh.service.OrderService;
+import com.yh.service.impl.OrderServiceImpl;
 import com.yh.utils.PaymentUtil;
 /**
  * 更新收货人信息+在线支付
@@ -24,7 +25,7 @@ import com.yh.utils.PaymentUtil;
 @WebServlet("/confirmOrder")
 public class ConfirmOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     OrderService service = new OrderService();  
+     OrderService service = new OrderServiceImpl();  
     /**
      * @see HttpServlet#HttpServlet()
      */

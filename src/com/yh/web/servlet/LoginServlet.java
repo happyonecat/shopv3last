@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.yh.pojo.User;
 import com.yh.service.UserService;
+import com.yh.service.impl.UserServiceImpl;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		//将用户名和密码传递给service层
-		UserService service = new UserService();
+		UserService service = new UserServiceImpl();
 		User user = null;
 		try {
 			user = service.login(username,password);
