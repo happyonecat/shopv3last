@@ -27,13 +27,28 @@ public class AutoLoginFilter implements Filter {
 		//强转
 		HttpServletRequest req =(HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
+		//如果是的登录页直接放行
+		String path = request.getServletContext().getContextPath();
+		if(path.startsWith("login.jsp")){
+			chain.doFilter(req, res);
+		}
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
+		//如果用户已经登录,放行,不需要自动登录
+		if(user!=null){
+			chain.doFilter(req, res);
+			return;//程序结束
+		}
 		if(user==null){
 			String ccookie_username = null;
 			String cookie_password = null;
 			//获取携带用户名和密码cookie
 			Cookie[] cookie = req.getCookies();
+			//判断自动登录的cookie是否存在,如果没有,没不需要自动登录了
+			if(cookie == null){
+				chain.doFilter(req, res);
+				return;
+			}
 			if(cookie!=null){
 				for(Cookie cookie2 :cookie){
 					//获取想要的cookie
@@ -51,12 +66,11 @@ public class AutoLoginFilter implements Filter {
 				try {
 					service.login(ccookie_username, cookie_password);
 				} catch (SQLException e) {
-					e.printStackTrace();
+					System.out.println("自动登录异常,自动忽略");
 				}
 				//完成自动登录
 				session.setAttribute("user", user);
 			}
-			
 		}
 		//放行
 		chain.doFilter(req, res);

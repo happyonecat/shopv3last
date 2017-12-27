@@ -1,23 +1,19 @@
 package com.yh.web.servlet;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
-
 import com.yh.pojo.User;
 import com.yh.service.UserService;
 import com.yh.service.impl.UserServiceImpl;
@@ -25,18 +21,11 @@ import com.yh.utils.CommonsUtils;
 import com.yh.utils.MailUtils;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
-		
-		//获得表单数据
+		//获得表单数据,并封装数据
 		Map<String, String[]> properties = request.getParameterMap();
 		User user = new User();
 		try {
@@ -60,43 +49,38 @@ public class RegisterServlet extends HttpServlet {
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		
+         //封装页面没有提供的数据,让映射完全
 		//private String uid;
 		user.setUid(CommonsUtils.getUUID());
 		//private String telephone;
 		user.setTelephone(null);
 		//private int state;//是否激活
-		user.setState(0);
+		user.setState(0); //0表示没激活,1表示激活
 		//private String code;//激活码
 		String activeCode = CommonsUtils.getUUID();
 		user.setCode(activeCode);
-		
-		
 		//将user传递给service层
 		UserService service = new UserServiceImpl();
 		boolean isRegisterSuccess = service.regist(user);
-		
 		//是否注册成功
 		if(isRegisterSuccess){
 			//发送激活邮件
 			String emailMsg = "恭喜您注册成功，请点击下面的连接进行激活账户"
-					+ "<a href='http://localhost:8080/HeimaShop/active?activeCode="+activeCode+"'>"
-							+ "http://localhost:8080/HeimaShop/active?activeCode="+activeCode+"</a>";
+					+ "<a href='http://localhost/shopv3/active?activeCode="+activeCode+"'>"
+							+ "http://localhost/shopv3/active?activeCode="+activeCode+"</a>";
 			try {
 				MailUtils.sendMail(user.getEmail(), emailMsg);
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
-			
-			
 			//跳转到注册成功页面
+			//成功提示
+			request.setAttribute("msg", "注册成功,请您邮件激活后登陆");
 			response.sendRedirect(request.getContextPath()+"/registerSuccess.jsp");
 		}else{
 			//跳转到失败的提示页面
 			response.sendRedirect(request.getContextPath()+"/registerFail.jsp");
 		}
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

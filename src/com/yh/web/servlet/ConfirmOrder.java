@@ -1,18 +1,14 @@
 package com.yh.web.servlet;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.beanutils.BeanUtils;
-
 import com.yh.pojo.Order;
 import com.yh.service.OrderService;
 import com.yh.service.impl.OrderServiceImpl;
@@ -26,30 +22,19 @@ import com.yh.utils.PaymentUtil;
 public class ConfirmOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      OrderService service = new OrderServiceImpl();  
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ConfirmOrder() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-//		String address = request.getParameter("address");
-//		String name = request.getParameter("name");
-//		String telephone = request.getParameter("telephone");
-//		Order order = new Order();
-//		order.setAddr(address);
-//		order.setName(name);
+		String address = request.getParameter("address");
+		String name = request.getParameter("name");
+		String telephone = request.getParameter("telephone");
+		Order order = new Order();
+		order.setAddr(address);
+		order.setName(name);
 		//1 更新收货人信息
 		Map<String, String[]> properties = request.getParameterMap();
-		Order order = new Order();
+		//Order order = new Order();
 		try {
 			BeanUtils.populate(order, properties);
 		} catch (IllegalAccessException e) {

@@ -56,6 +56,7 @@ public class CallbackServlet extends HttpServlet {
 				//修改order的状态为1
 				OrderService service = new OrderServiceImpl();
 				service.updateOrderState(r6_Order);//r6_Order就是订单编号
+				request.setAttribute("msg", "亲,您已经付款成功,订单号为:"+r6_Order+"支付金额为:"+r3_Amt);
 				// 浏览器重定向
 				response.setContentType("text/html;charset=utf-8");
 				response.getWriter().println("<h1>付款成功！等待商城进一步操作！等待收货...</h1>");

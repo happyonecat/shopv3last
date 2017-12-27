@@ -67,10 +67,6 @@ public class CartServlet extends HttpServlet {
 			 newSubtotal = buyNum*findProductByPid.getShop_price();
 		 }
 		 //如果购物车没有改商品的,进行原有的如下操作
-		 
-		 
-		 
-		 
 		 //计算总计
 		 double total = cart.getTotal()+newSubtotal;
 		 cart.setTotal(total);

@@ -3,6 +3,7 @@ package com.yh.admin.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,22 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.yh.pojo.Product;
-import com.yh.service.ProductService;
-import com.yh.service.impl.ProductServiceImpl;
+import com.yh.pojo.Order;
+import com.yh.service.OrderService;
+import com.yh.service.impl.OrderServiceImpl;
 
 /**
- * Servlet implementation class ProductList
+ * Servlet implementation class SendGood
  */
-@WebServlet("/productListServlet")
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/sendGood")
+public class SendGood extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListServlet() {
+    public SendGood() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +34,22 @@ public class ProductListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
-		ProductService service = new ProductServiceImpl();
-		List<Product> listProduct =null;
+		//先查询,然后修改状态,最后更新
+		//接受oid
+		String oid = request.getParameter("oid");
+		//根据oid查询
+		OrderService service = new OrderServiceImpl();
+		Order order = null;
 		try {
-		 listProduct = service.queryAllProduct();
-		 request.getSession().setAttribute("listProduct", listProduct);
-		 response.sendRedirect(request.getContextPath()+"/admin/product/list.jsp");
+			order = service.queryOrderByOid(oid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		order.setState(3);
+		service.updateOrder(order);
+		response.sendRedirect(request.getContextPath()+"/listorder");
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

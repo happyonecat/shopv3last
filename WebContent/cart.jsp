@@ -119,7 +119,7 @@
 			</div>
 		</div>
 		</c:if>
-		<!-- 假如购物车里面不为空,显示一张图片 -->
+		<!-- 假如购物车里面为空,显示一张图片 -->
 		<c:if test="${empty cart.catItems}">
 		   <div>
 			<img alt="" src="${pageContext.request.contextPath }/image/cart-empty.png">

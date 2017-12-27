@@ -47,7 +47,6 @@ public class OrderServiceImpl implements OrderService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -92,5 +91,19 @@ public class OrderServiceImpl implements OrderService {
 		OrderDao dao = new OrderDao();
 		return dao.findAllOrder();
 	}
+
+	@Override
+	public List<Order> findOrderBystate(int states) throws SQLException {
+		OrderDao dao = new OrderDao();
+		return dao.findOrderBystate(states);
+	}
+
+	@Override
+	public Order queryOrderByOid(String oid) throws SQLException {
+		OrderDao dao = new OrderDao();
+		return dao.queryOrderByOid(oid);
+	}
+
+	
 
 }

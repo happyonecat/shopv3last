@@ -29,10 +29,12 @@
 				</tr>
 				<tr>
 					<td class="ta_01" align="right">
+					<a href="${pageContext.request.contextPath }/admin/product/add.jsp">
 						<button type="button" id="add" name="add" value="添加"
-							class="button_add" onclick="addProduct()">
-							&#28155;&#21152;</button>
-
+							class="button_add" >
+							&#28155;&#21152;
+						</button>
+                     </a>
 					</td>
 				</tr>
 				<tr>
@@ -52,8 +54,6 @@
 								<td width="7%" align="center">删除</td>
 							</tr>
 							<c:forEach  items="${listProduct }" var="product">
-							
-							
 							<tr onmouseover="this.style.backgroundColor = 'white'"
 								onmouseout="this.style.backgroundColor = '#F5FAFE';">
 								<td style="CURSOR: hand; HEIGHT: 22px" align="center"
@@ -72,7 +72,6 @@
 										src="${pageContext.request.contextPath}/images/i_edit.gif"
 										border="0" style="CURSOR: hand">
 								</a></td>
-
 								<td align="center" style="HEIGHT: 22px"><a href="#"> <img
 										src="${pageContext.request.contextPath}/images/i_del.gif"
 										width="16" height="16" border="0" style="CURSOR: hand">

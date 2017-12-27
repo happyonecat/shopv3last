@@ -19,35 +19,25 @@ import com.yh.service.impl.OrderServiceImpl;
  */
 @WebServlet("/listorder")
 public class OrderServletList extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderServletList() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		String state =request.getParameter("state");
+		//业务操作
 		OrderService service  = new OrderServiceImpl();
-		List<Order> orders;
+		List<Order> orders = null;
+		int states = Integer.parseInt(state);
 		try {
-			 orders = service.findAllOrder();
-			 if(orders!=null){
-				 request.getSession().setAttribute("orders", orders);
-				 response.sendRedirect(request.getContextPath()+"/admin/order/list.jsp");
-			 }
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(states == 1){
+			orders = service.findAllOrder();//查询所有
+		}else{
+			//查询某个订单状态
+			orders = service.findOrderBystate(states);
 		}
-		
-		
+		 request.getSession().setAttribute("orders", orders);
+		 response.sendRedirect(request.getContextPath()+"/admin/order/list.jsp");
+		} catch (Exception e) {
+		}
 	}
 
 	/**

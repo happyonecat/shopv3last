@@ -121,7 +121,9 @@ public class SaveProductServlet extends HttpServlet {
 		//将封装到好的product,传递给service
 		AdminService service = new AdminServiceImpl();
 		service.saveProduct(product);
-		response.sendRedirect(request.getContextPath()+"/admin/product/list.jsp");
+		
+		//response.sendRedirect(request.getContextPath()+"/admin/product/list.jsp");
+		response.sendRedirect(request.getContextPath()+"/productListServlet");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

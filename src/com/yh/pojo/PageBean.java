@@ -8,7 +8,6 @@ import java.util.List;
  * @param <T>
  */
 public class PageBean<T> {
-
 	private int currentPage;
 	private int currentCount;
 	private int totalCount;

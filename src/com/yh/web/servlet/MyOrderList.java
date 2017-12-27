@@ -61,20 +61,12 @@ public class MyOrderList extends HttpServlet {
 					} catch (IllegalAccessException | InvocationTargetException e) {
 						e.printStackTrace();
 					}
-					
-					
 				}
-
 			}
 		}
-		
-		
 		//orderList封装完整了
 		request.setAttribute("orderList", orderList);
-		
 		request.getRequestDispatcher("/order_list.jsp").forward(request, response);
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

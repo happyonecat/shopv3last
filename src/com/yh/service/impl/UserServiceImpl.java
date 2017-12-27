@@ -2,6 +2,8 @@ package com.yh.service.impl;
 
 import java.sql.SQLException;
 
+import javax.management.RuntimeErrorException;
+
 import com.yh.dao.UserDao;
 import com.yh.pojo.User;
 import com.yh.service.UserService;
@@ -25,11 +27,18 @@ public class UserServiceImpl implements UserService {
 	public void active(String activeCode) {
 		UserDao dao = new UserDao();
 		try {
-			dao.active(activeCode);
+		//1 通过激活码查询用户
+		User exitUser = dao.findByCode(activeCode);
+		if(exitUser == null){
+			//自定义异常
+			throw new RuntimeException("用户激活码无效,请重试或重新发送邮件");
+		}
+		dao.active(activeCode); //激活,调用userDao,把state设置为1,代表激活了
+		exitUser.setCode(null);//假如激活过了,把code设置为null
+		dao.updateUser(exitUser);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override

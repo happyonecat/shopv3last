@@ -12,33 +12,30 @@ import com.google.gson.Gson;
 import com.yh.pojo.Category;
 import com.yh.service.AdminService;
 import com.yh.service.impl.AdminServiceImpl;
+import com.yh.utils.JedisPoolUtils;
 
-@WebServlet("/findAllCategory")
-public class FindAllCategoryServlet extends HttpServlet {
+import redis.clients.jedis.Jedis;
+@WebServlet("/admincategory")
+public class AdmincategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		//提供一个集合list<Category> 转成json字符串
-		AdminService admin = new AdminServiceImpl();
+		AdminService service =  new AdminServiceImpl();
+		List<Category> list  = null;
 		try {
-			List<Category> categorylist = admin.findAllCategory();
-			//这里是ajax请求访问的数据,必须返回json格式,这里假如放到域里面,ajax访问不到的
-			//谁request我,我就response给谁
-			Gson gson  = new Gson();
-			String json = gson.toJson(categorylist);
-			//这里面有中文
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().write(json);
+		   list  =  service.queryAllCategory();
+		   if(list!=null){
+				//先从缓存中查询categoryList 如果有直接使用 没有在从数据库中查询 存到缓存中
+				//1、获得jedis对象 连接redis数据库
+				Jedis jedis = JedisPoolUtils.getJedis();
+				jedis.del("categoryListJson");
+			   request.setAttribute("list", list);
+			   request.getRequestDispatcher("/admin/category/list.jsp").forward(request, response);
+		   }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request, response);
 	}
-
 }

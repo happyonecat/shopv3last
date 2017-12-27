@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Administrator
  *
  */
-public class Product {
+public class Product implements Serializable {
 
 	/*`pid` varchar(32) NOT NULL,
 	  `pname` varchar(50) DEFAULT NULL,

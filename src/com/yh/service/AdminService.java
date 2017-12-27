@@ -11,5 +11,10 @@ public interface AdminService {
 	public List<Category> findAllCategory() throws SQLException;
 	public void saveProduct(Product product) throws SQLException;
 	public List<Map<String, Object>> findorderInfoByOid(String oid) throws SQLException;
+	public List<Category> queryAllCategory() throws SQLException;
+	public Boolean addCategory(Category category) throws Exception;
+	public Category selectCategoryByCid(String cid) throws SQLException;
+	public Boolean updateCategoryByCid(Category category) throws SQLException;
+	public Boolean deleteCategoryByCid(String cid) throws SQLException;
 
 }

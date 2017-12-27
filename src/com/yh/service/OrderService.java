@@ -22,4 +22,10 @@ public interface OrderService {
 	public List<Map<String, Object>> findAllOrderItemByOid(String oid);
 
 	public List<Order> findAllOrder() throws SQLException;
+
+	public List<Order> findOrderBystate(int states) throws SQLException;
+
+	public Order queryOrderByOid(String oid) throws SQLException;
+
+	
 }

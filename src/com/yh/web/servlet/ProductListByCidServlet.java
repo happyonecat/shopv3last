@@ -25,10 +25,8 @@ public class ProductListByCidServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		//获得cid
 		String cid = request.getParameter("cid");
-		
 		String currentPageStr = request.getParameter("currentPage");
 		if(currentPageStr==null) currentPageStr="1";
 		int currentPage = Integer.parseInt(currentPageStr);
@@ -42,7 +40,6 @@ public class ProductListByCidServlet extends HttpServlet {
 		
 		//定义一个记录历史商品信息的集合
 		List<Product> historyProductList = new ArrayList<Product>();
-		
 		//获得客户端携带名字叫pids的cookie
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null){

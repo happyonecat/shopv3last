@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 		if(user!=null){
 			//登录成功
 			//***************判断用户是否勾选了自动登录*****************
+			//下面得到的是CheckBox提交过来的值,CheckBox只会提交选中的值
 			String autoLogin = request.getParameter("autoLogin");
 			if("autoLogin".equals(autoLogin)){
 				//要自动登录
@@ -59,7 +60,28 @@ public class LoginServlet extends HttpServlet {
 				response.addCookie(cookie_username);
 				response.addCookie(cookie_password);
 
+			}else{
+				Cookie cookie_username = new Cookie("cookie_username","");
+				cookie_username.setMaxAge(0);
+				//创建存储密码的cookie
+				Cookie cookie_password = new Cookie("cookie_password","");
+				cookie_password.setMaxAge(0);
+
+				response.addCookie(cookie_username);
+				response.addCookie(cookie_password);
 			}
+			//#记录用户名
+			String remember = request.getParameter("remembername");
+			if("1".equals(remember)){
+				Cookie rememberCookie = new Cookie("rememberCookie", user.getUsername());
+				rememberCookie.setMaxAge(1000);
+				response.addCookie(rememberCookie);
+			}else{
+				Cookie rememberCookie = new Cookie("rememberCookie", "");
+				rememberCookie.setMaxAge(0);
+				response.addCookie(rememberCookie);
+			}
+			//#记录用户名结束
 			//***************************************************
 			//将user对象存到session中
 			session.setAttribute("user", user);
@@ -67,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 			//重定向到首页
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
 		}else{
-			request.setAttribute("loginError", "用户名或密码错误");
+			request.setAttribute("msg", "用户名或密码错误");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		

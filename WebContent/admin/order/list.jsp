@@ -72,7 +72,6 @@
 		
 	</HEAD>
 	<body>
-	
 		<form id="Form1" name="Form1" action="${pageContext.request.contextPath}/listorder" method="post">
 			<table cellSpacing="1" cellPadding="0" width="100%" align="center" bgColor="#f5fafe" border="0">
 				<TBODY>
@@ -81,10 +80,6 @@
 							<strong>订单列表</strong>
 						</TD>
 					</tr>
-					
-					
-					
-					
 					<tr>
 						<td class="ta_01" align="center" bgColor="#f5fafe">
 							<table cellspacing="0" cellpadding="1" rules="all"
@@ -133,12 +128,26 @@
 									</td>
 									<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 										width="17%">
-										${order.state==0?"未付款":"已付款" }
+										<%-- ${order.state==0?"未付款":"已付款" } --%>
+										<c:if test="${order.state == 0 }">
+											未付款
+										</c:if>
+										<c:if test="${order.state == 1 }">
+											已付款
+										</c:if>
+										<c:if test="${order.state == 2 }">
+											<a href="${pageContext.request.contextPath }/sendGood?oid=${order.oid}">发货</a>
+										</c:if>
+										<c:if test="${order.state == 3 }">
+											未确认收费
+										</c:if>
+										<c:if test="${order.state == 4 }">
+											订单结束
+										</c:if>
 									</td>
 									<td align="center" style="HEIGHT: 22px">
 										<input type="button" value="订单详情" class="clickedElement" onclick="findOrderInfoByOid('${order.oid }')"/>
 									</td>
-					
 								</tr>
 								</c:forEach>
 							</table>

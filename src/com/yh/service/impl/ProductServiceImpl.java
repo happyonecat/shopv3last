@@ -49,8 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public PageBean findProductListByCid(String cid, int currentPage, int currentCount) {
-ProductDao dao = new ProductDao();
-		
+		ProductDao dao = new ProductDao();
 		//封装一个PageBean 返回web层
 		PageBean<Product> pageBean = new PageBean<Product>();
 		
@@ -80,9 +79,7 @@ ProductDao dao = new ProductDao();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		pageBean.setList(list);
-		
-		
+		pageBean.setList(list);//pageBean里面已经封装好了一个List<T> list; 这里是给自己的list赋值
 		return pageBean;
 	}
 
@@ -95,7 +92,6 @@ ProductDao dao = new ProductDao();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("service"+product);
 		return product;
 	}
 

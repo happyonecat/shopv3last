@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
@@ -65,6 +66,18 @@ public class OrderDao {
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		String sql = "select * from orders";
 		return runner.query(sql, new BeanListHandler<Order>(Order.class));
+	}
+
+	public List<Order> findOrderBystate(int states) throws SQLException {
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders where state=?";
+		return runner.query(sql, new BeanListHandler<Order>(Order.class),states);
+	}
+
+	public Order queryOrderByOid(String oid) throws SQLException {
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders where oid=?";
+		return runner.query(sql, new BeanHandler<Order>(Order.class),oid);
 	}
 
 

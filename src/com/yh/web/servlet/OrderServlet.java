@@ -80,7 +80,7 @@ public class OrderServlet extends HttpServlet {
 			//private Order order;//该订单项属于哪个订单
 			orderItem.setOrder(order);
 			//将订单项添加到订单项集合中
-			List<OrderItem> orderItems = order.getOrderItems();
+			List<OrderItem> orderItems = order.getOrderItems(); //意思是:把order实体类封装完整
 			orderItems.add(orderItem);
 		}
 		//order对象封装完毕
